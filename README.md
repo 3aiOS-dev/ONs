@@ -79,7 +79,11 @@ vendor/openssl  Static OpenSSL (libcrypto/libssl) for the engine
 project.yml     XcodeGen manifest (regenerates the .xcodeproj)
 ```
 
+## License
+
+The original iStore code is available under the [MIT License](LICENSE), copyright © 2026 Abdulbasit Khudair. Third-party components retain their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for details.
+
 ## Third-party
 
-- [zsign](https://github.com/zhlynn/zsign) — signing engine (vendored)
-- [OpenSSL](https://www.openssl.org) — static cryptography libraries (vendored)
+- [zsign](https://github.com/zhlynn/zsign) — signing engine (vendored, MIT License)
+- [OpenSSL](https://www.openssl.org) — static cryptography libraries (vendored, Apache License 2.0)
