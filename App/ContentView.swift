@@ -208,7 +208,7 @@ struct ContentView: View {
         guard ipaURL != nil else {
             let message = localized(
                 "The downloaded IPA could not be prepared for signing.",
-                "تعذر تجهيز ملف IPA الذي تم تنزيله للتوقيع."
+                "تعذر تجهيز ملف iPA الذي تم تنزيله للتوقيع."
             )
             repoStore.completeInstallAttempt(downloadedAppID, error: message)
             automaticInstallAppID = nil
