@@ -2,14 +2,14 @@
 
 On-device IPA re-signer for iPhone and iPad. Sign, install and manage IPAs entirely on the device — no computer, no server, no uploads.
 
-**[Explore the  iStore 1.1 site](https://hggdet.github.io/iStore-iOS/)** · **[Download the latest unsigned IPA](https://github.com/hggdet/iStore-iOS/releases/latest/download/ iStore-latest.ipa)**
+**[Explore the iStore 1.1 site](https://hggdet.github.io/iStore-iOS/)** · **[Download the latest unsigned IPA](https://github.com/hggdet/iStore-iOS/releases/latest/download/iStore-latest.ipa)**
 
 iStore wraps the battle-tested [zsign](https://github.com/zhlynn/zsign) C++ engine (with a static OpenSSL) in a SwiftUI "liquid glass" interface and adds a complete signing workflow on top of it.
 
 <p align="center">
-  <img src="docs/screenshot-sign.png" alt=" iStore Sign tab — on-device IPA signer" width="280" />
+  <img src="docs/screenshot-sign.png" alt="iStore Sign tab — on-device IPA signer" width="280" />
   &nbsp;
-  <img src="docs/screenshot-library.png" alt=" iStore Library — signed app history" width="280" />
+  <img src="docs/screenshot-library.png" alt="iStore Library — signed app history" width="280" />
 </p>
 
 <p align="center"><sub>Certificate and provisioning identifiers are redacted in the Sign preview.</sub></p>
@@ -37,17 +37,17 @@ iStore wraps the battle-tested [zsign](https://github.com/zhlynn/zsign) C++ engi
 
 ```bash
 xcodegen generate
-open  iStoreMobile.xcodeproj
+open ForgeSignMobile.xcodeproj
 ```
 
-Build the ` iStoreMobile` scheme for a device. Code signing is disabled in the project settings by design — sign the produced app with your own certificate and profile ( iStore desktop can do it, or any sideloading tool).
+Build the `ForgeSignMobile` scheme for a device. Code signing is disabled in the project settings by design — sign the produced app with your own certificate and profile (the desktop iStore can do it, or any sideloading tool).
 
 ## Sideload the prebuilt IPA
 
-Grab ` iStore-1.1.ipa` from the [1.1 release](https://github.com/hggdet/iStore-iOS/releases/tag/v1.1). The IPA ships **unsigned** — that is the point of the app: sign it like any other IPA.
+Grab `iStore-1.1.ipa` from the [1.1 release](https://github.com/hggdet/iStore-iOS/releases/tag/v1.1). The IPA ships **unsigned** — that is the point of the app: sign it like any other IPA.
 
 1. Download the IPA.
-2. Sign it with your certificate + provisioning profile — e.g. with  iStore (desktop or the iOS app itself), Sideloadly, AltStore or a similar tool.
+2. Sign it with your certificate + provisioning profile — e.g. with iStore (desktop or the iOS app itself), Sideloadly, AltStore or a similar tool.
 3. Install the signed IPA on your device.
 
 Only sign and install applications you have the rights to modify. Intended for your own builds and development use.
@@ -59,9 +59,9 @@ Only sign and install applications you have the rights to modify. Intended for y
 - Sources tab with repository feeds and direct IPA handoff.
 - Lighter glass surfaces and refreshed dark-mode screens.
 
-![ iStore Sign tab in dark mode](docs/screens/screenshot-sign-dark.png)
+![iStore Sign tab in dark mode](docs/screens/screenshot-sign-dark.png)
 
-![ iStore Sources and Library tabs in dark mode](docs/screens/screenshot-sources-dark.png) ![ iStore Library tab in dark mode](docs/screens/screenshot-library-dark.png)
+![iStore Sources and Library tabs in dark mode](docs/screens/screenshot-sources-dark.png) ![iStore Library tab in dark mode](docs/screens/screenshot-library-dark.png)
 
 ## How it works
 
