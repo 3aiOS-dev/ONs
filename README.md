@@ -1,89 +1,55 @@
 # iStore
 
-On-device IPA re-signer for iPhone and iPad. Sign, install and manage IPAs entirely on the device — no computer, no server, no uploads.
+> تطبيق iOS مفتوح المصدر لتوقيع وتثبيت ملفات IPA محلياً على iPhone وiPad.
 
-**[Explore the iStore 1.1 site](https://hggdet.github.io/iStore-iOS/)** · **[Download the latest unsigned IPA](https://github.com/hggdet/iStore-iOS/releases/latest/download/iStore-latest.ipa)**
+**iStore** هو تطبيق مكتوب بـ SwiftUI يتيح استيراد ملفات IPA أو تنزيلها من المصادر المضافة، ثم توقيعها على الجهاز باستخدام شهادة `P12` وملف `mobileprovision` خاصين بالمستخدم. صُمم التطبيق بواجهة عربية افتراضية، وتجربة Liquid Glass خفيفة وسلسة، من دون رفع ملفات الشهادات أو التطبيقات إلى خادم خارجي.
 
-iStore wraps the battle-tested [zsign](https://github.com/zhlynn/zsign) C++ engine (with a static OpenSSL) in a SwiftUI "liquid glass" interface and adds a complete signing workflow on top of it.
+## المزايا
 
-<p align="center">
-  <img src="docs/screenshot-sign.png" alt="iStore Sign tab — on-device IPA signer" width="280" />
-  &nbsp;
-  <img src="docs/screenshot-library.png" alt="iStore Library — signed app history" width="280" />
-</p>
+- **توقيع محلي** لملفات IPA باستخدام شهادة `P12` وملف Provisioning Profile خاصين بك.
+- **تثبيت بعد التوقيع** مع حالات واضحة للتنزيل والتوقيع والتثبيت ومعالجة للأخطاء والتعليق.
+- **مصادر تطبيقات** لتصفح التطبيقات وتنزيلها ثم تمريرها لمسار التوقيع داخل iStore.
+- **مكتبة محلية** للاحتفاظ بالتطبيقات التي وقعتها، مع خيارات المشاركة والحذف وإعادة التثبيت.
+- **استيراد IPA** من تطبيق الملفات واختيار أيقونة بديلة أو إضافة Dylib متوافق عند الحاجة.
+- **واجهة Liquid Glass** أصلية على iOS 26، مع بديل Material خفيف ومتوافق مع الإصدارات الأقدم.
+- **العربية افتراضياً** مع اتجاه RTL صحيح، ودعم اللغة الإنكليزية عند الحاجة.
+- **أداء محسّن** للقوائم والبحث وحالات زر التثبيت لتقليل التقطيع والتحديثات غير الضرورية.
 
-<p align="center"><sub>Certificate and provisioning identifiers are redacted in the Sign preview.</sub></p>
+## التوافق
 
-## Features
+| العنصر | التفاصيل |
+| --- | --- |
+| الحد الأدنى للنظام | iOS 16.4 |
+| اللغة | Swift 6 وSwiftUI |
+| واجهة Liquid Glass الأصلية | iOS 26 وما بعده |
+| الواجهة البديلة | Material على iOS 16.4 إلى iOS 25 |
+| محرك التوقيع | zsign المضمّن داخل المشروع |
 
-- **Sign IPAs on-device** — pick an `.ipa`, a `.p12` certificate and a `.mobileprovision` profile, optionally rewrite the bundle ID, strip app extensions or enable Files sharing, and sign in seconds with the vendored zsign engine.
-- **Remembered certificates** — imported `.p12` files are validated once and stored on-device (Application Support). The last-used certificate is re-selected automatically.
-- **Certificate insights** — common name, organization and team ID are parsed from the certificate, and a live countdown pill shows remaining validity (`200d left`, amber under 30 days, red when expired).
-- **Keychain passwords** — opt-in password storage in the iOS Keychain (with an encrypted-file fallback when the Keychain is unavailable), so re-signing takes two taps.
-- **Install on device** — semi-local OTA install: the IPA is served over loopback HTTP while a trusted remote HTTPS plist (`api.palera.in`) drives `itms-services` directly (Safari is a fallback only). Silent-audio keep-alive keeps large downloads alive in the background.
-- **Library** — a persistent history of every signed app with status (signed / installing / installed / missing), plus reinstall, share and delete actions.
-- **IPA preflight** — package, bundle, encryption and architecture signals are shown before a signing run.
-- **Sources** — save repository feeds and hand selected IPA downloads into the normal signing flow.
-- **Optional dylib injection** — inject a compatible decrypted dylib into the app, with an opt-in app-extension path, before signing. The original IPA is left untouched.
-- **Glass design language** — lighter translucent cards, ambient color blooms, Liquid Glass on iOS 26+ with a material fallback back to iOS 16, light and dark themes.
+## البناء من المصدر
 
-## Requirements
-
-- Xcode 26+ (the build needs the iOS 26 SDK for the Liquid Glass APIs; deployment target is iOS 16)
-- [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
-- iOS 16.0+ on device
-
-## Build from source
+يتطلب البناء Xcode حديثاً يدعم iOS 26 SDK لتجربة Liquid Glass الأصلية، بالإضافة إلى [XcodeGen](https://github.com/yonaskolb/XcodeGen).
 
 ```bash
 xcodegen generate
 open ForgeSignMobile.xcodeproj
 ```
 
-Build the `ForgeSignMobile` scheme for a device. Code signing is disabled in the project settings by design — sign the produced app with your own certificate and profile (the desktop iStore can do it, or any sideloading tool).
+افتح المشروع في Xcode وابنِ Scheme باسم `ForgeSignMobile`. اسم التطبيق الناتج للمستخدم هو **iStore**. إعدادات التوقيع داخل المشروع معطلة افتراضياً؛ وقّع التطبيق الناتج بشهادتك وملف Provisioning Profile المناسبين قبل تثبيته على جهازك.
 
-## Sideload the prebuilt IPA
+## الاستخدام المسؤول
 
-Grab `iStore-1.1.ipa` from the [1.1 release](https://github.com/hggdet/iStore-iOS/releases/tag/v1.1). The IPA ships **unsigned** — that is the point of the app: sign it like any other IPA.
+iStore أداة محلية لإدارة ملفات IPA التي تملك حق استخدامها أو تعديلها. أنت مسؤول عن شهاداتك وملفات التوقيع والتطبيقات التي تستوردها أو تثبتها.
 
-1. Download the IPA.
-2. Sign it with your certificate + provisioning profile — e.g. with iStore (desktop or the iOS app itself), Sideloadly, AltStore or a similar tool.
-3. Install the signed IPA on your device.
+لا ترفع ملفات `P12` أو كلمات مرورها أو ملفات Provisioning Profile إلى Issues أو إلى أي مكان عام داخل GitHub.
 
-Only sign and install applications you have the rights to modify. Intended for your own builds and development use.
+## المساهمة والدعم
 
-## What’s new in 1.1
+إذا وجدت خللاً أو لديك اقتراح لتحسين الأداء أو الواجهة، افتح [Issue](https://github.com/hggdet/iStore-iOS/issues) واضحاً يتضمن إصدار iOS، نوع الجهاز، والخطوات التي أدت إلى المشكلة.
 
-- Preflight card for package, bundle, encryption and architecture checks.
-- Optional dylib injection with app-extension support for compatible decrypted Mach-O inputs.
-- Sources tab with repository feeds and direct IPA handoff.
-- Lighter glass surfaces and refreshed dark-mode screens.
+إذا عجبك المشروع، ادعمه بوضع **Star** على GitHub ومشاركته مع من قد يستفيد منه.
 
-![iStore Sign tab in dark mode](docs/screens/screenshot-sign-dark.png)
+## الرخصة
 
-![iStore Sources and Library tabs in dark mode](docs/screens/screenshot-sources-dark.png) ![iStore Library tab in dark mode](docs/screens/screenshot-library-dark.png)
+كود iStore الأصلي متاح تحت [رخصة MIT](LICENSE)، وحقوق النشر محفوظة لـ **Abdulbasit Khudair © 2026**.
 
-## How it works
-
-1. Picked files are staged into the app container.
-2. The zsign engine (`Bridge/`) re-signs the Mach-O binaries, injects the profile and rewrites metadata, producing `<name>-signed.ipa` in the persistent Signed library.
-3. Install serves the IPA on `http://127.0.0.1:<port>`, obtains a trusted HTTPS `manifest.plist` from `api.palera.in` that points at that IPA, then opens `itms-services://` directly so iOS prompts to install.
-
-## Project layout
-
-```
-App/            SwiftUI UI (glass design system in App/Design), stores and services
-Bridge/         Obj-C++ bridge into the zsign engine
-vendor/zsign    Vendored zsign signing engine
-vendor/openssl  Static OpenSSL (libcrypto/libssl) for the engine
-project.yml     XcodeGen manifest (regenerates the .xcodeproj)
-```
-
-## License
-
-The original iStore code is available under the [MIT License](LICENSE), copyright © 2026 Abdulbasit Khudair. Third-party components retain their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for details.
-
-## Third-party
-
-- [zsign](https://github.com/zhlynn/zsign) — signing engine (vendored, MIT License)
-- [OpenSSL](https://www.openssl.org) — static cryptography libraries (vendored, Apache License 2.0)
+يحتوي المشروع على مكونات خارجية تحتفظ بتراخيصها الخاصة، منها zsign وOpenSSL. راجع [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) للتفاصيل.
