@@ -4,8 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+
 	<key>CFBundleDisplayName</key>
-	<string>iStore</string>
+	<string>ONEs</string>
+
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -22,30 +24,42 @@
 			</array>
 		</dict>
 	</array>
+
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.ones.plus</string>
+
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+
 	<key>CFBundleName</key>
-	<string>iStore</string>
+	<string>ONEs</string>
+
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1</string>
+
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>1</string>
+
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>itms-services</string>
 	</array>
+
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+
 	<key>MinimumOSVersion</key>
-		<string>16.4</string>
+	<string>16.4</string>
+
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -53,14 +67,18 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
 	</array>
+
 	<key>UIFileSharingEnabled</key>
 	<true/>
+
 	<key>UILaunchScreen</key>
 	<dict/>
+
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
