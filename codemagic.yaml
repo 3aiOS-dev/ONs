@@ -1,0 +1,33 @@
+workflows:
+  ios-unsigned:
+    name: iStore Unsigned IPA
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    environment:
+      xcode: 26.4
+    scripts:
+      - name: Install XcodeGen
+        script: |
+          brew install xcodegen
+      - name: Generate Xcode project
+        script: |
+          xcodegen generate
+      - name: Build unsigned archive
+        script: |
+          set -e
+          rm -rf "$CM_BUILD_DIR/build" Payload iStore.ipa
+          mkdir -p "$CM_BUILD_DIR/build"
+          xcodebuild \
+            -project ForgeSignMobile.xcodeproj \
+            -scheme ForgeSignMobile \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$CM_BUILD_DIR/build/ForgeSignMobile.xcarchive" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY='' \
+            DEVELOPMENT_TEAM='' \
+            archive
+    artifacts:
+      - $CM_BUILD_DIR/build/ForgeSignMobile.xcarchive/Products/Applications/iStore.app
