@@ -1,4 +1,4 @@
-name: Build unsigned IPA
+name: Build ONEs unsigned IPA
 
 on:
   workflow_dispatch:
@@ -23,12 +23,12 @@ jobs:
       - name: Build unsigned archive
         run: >-
           xcodebuild
-          -project ForgeSignMobile.xcodeproj
-          -scheme ForgeSignMobile
+          -project ONEs.xcodeproj
+          -scheme ONEs
           -configuration Release
           -sdk iphoneos
           -destination 'generic/platform=iOS'
-          -archivePath "$RUNNER_TEMP/ForgeSignMobile.xcarchive"
+          -archivePath "$RUNNER_TEMP/ONEs.xcarchive"
           CODE_SIGNING_ALLOWED=NO
           CODE_SIGNING_REQUIRED=NO
           archive
@@ -36,12 +36,12 @@ jobs:
       - name: Package IPA
         run: |
           mkdir -p Payload
-          cp -R "$RUNNER_TEMP/ForgeSignMobile.xcarchive/Products/Applications/iStore.app" Payload/
-          zip -qry iStore-unsigned.ipa Payload
+          cp -R "$RUNNER_TEMP/ONEs.xcarchive/Products/Applications/ONEs.app" Payload/
+          zip -qry ONEs-unsigned.ipa Payload
 
       - name: Upload unsigned IPA
         uses: actions/upload-artifact@v4
         with:
-          name: iStore-unsigned-ipa
-          path: iStore-unsigned.ipa
+          name: ONEs-unsigned-ipa
+          path: ONEs-unsigned.ipa
           if-no-files-found: error
