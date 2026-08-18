@@ -263,7 +263,7 @@ struct ContentView: View {
                     .foregroundColor(T.isDark ? .white : T.ink)
                     .frame(width: 40, height: 40)
                     .fClearGlass(in: RoundedRectangle(cornerRadius: 11, style: .continuous))
-                Text(localized("Import Application", "استيراد تطبيق"))
+                Text(localized("Import Application", "أستيراد تطبيق"))
                     .font(T.sans(17, .bold))
                     .foregroundColor(T.isDark ? .white : T.ink)
                 Spacer()
